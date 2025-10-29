@@ -1,0 +1,6 @@
+*.docx
+*.pptx
+*.png
+venv/
+__pycache__/
+.env
