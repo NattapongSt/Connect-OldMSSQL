@@ -1,10 +1,9 @@
-# ใช้ Python 3.11-slim (Debian Bookworm) เป็นเบส
+# Base image
 FROM python:3.11-slim
 
-# ตั้งค่าเพื่อป้องกันไม่ให้ apt-get ถามคำถามระหว่างติดตั้ง
 ENV DEBIAN_FRONTEND=noninteractive
 
-# ติดตั้ง Dependency ที่จำเป็นทั้งหมด
+# install Dependency 
 RUN apt-get update && \
     apt-get install -y \
     unixodbc \
@@ -13,17 +12,16 @@ RUN apt-get update && \
     tdsodbc \
     && rm -rf /var/lib/apt/lists/*
 
-# ติดตั้ง pyodbc
+# install Python packages
 RUN pip install pyodbc python-dotenv
 
-# คัดลอกไฟล์ Config ที่เราสร้างขึ้น ไปยังตำแหน่งที่ถูกต้องใน Image
-# COPY freetds.conf /etc/freetds/freetds.conf
+# copy odbcinst.ini configuration file
 COPY odbcinst.ini /etc/odbcinst.ini
 
 COPY .env .
 
-# คัดลอกสคริปต์ Python ของเราเข้าไป
+# copy Python script
 COPY test.py .
 
-# คำสั่งที่จะรันเมื่อ Container เริ่มทำงาน
+# set the default command to run the Python script
 CMD [ "python", "test.py" ]
