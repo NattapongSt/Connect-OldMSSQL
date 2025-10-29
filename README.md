@@ -41,7 +41,7 @@ We solve this by containerizing the application to escape the host's dependency 
 
 ## 🚀 4. How to Use
 
-You must have [Docker](https.www.docker.com/) installed on your machine.
+You must have [Docker](https://www.docker.com/) installed on your machine.
 
 1.  **Step 1: Edit `test.py`**
     Open `test.py` and enter the **database details** in the .env file.
